@@ -50,7 +50,7 @@ export const PhotoGallery: React.FC = () => {
       id: 'p7', 
       src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641264/ab2c1580-e265-4cea-af97-733443e03f9d_fqlhs3.jpg', 
       rotation: '-rotate-1',
-      caption: 'Where kindness meets brilliance, you\'ll find Sunidhi'
+      caption: "Where kindness meets brilliance, you'll find Sunidhi"
     },
     { 
       id: 'p8', 
@@ -61,94 +61,110 @@ export const PhotoGallery: React.FC = () => {
   ]);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
+  const touchStartX = useRef(0);
+  const touchScrollLeft = useRef(0);
 
   useEffect(() => {
     let interval: number;
-    if (!isHovered && scrollContainerRef.current) {
+    if (!isInteracting && scrollContainerRef.current) {
       interval = window.setInterval(() => {
         const container = scrollContainerRef.current;
         if (container) {
-          const itemWidth = 350; // Approximated width + gap
+          const cardWidth = 350; // Approximated card width + gap
           const maxScrollLeft = container.scrollWidth - container.clientWidth;
           
           if (container.scrollLeft >= maxScrollLeft - 10) {
             container.scrollTo({ left: 0, behavior: 'smooth' });
           } else {
-            container.scrollBy({ left: itemWidth, behavior: 'smooth' });
+            container.scrollBy({ left: cardWidth, behavior: 'smooth' });
           }
         }
-      }, 3500);
+      }, 4000);
     }
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isInteracting]);
+
+  // Touch handlers for better swipe experience and to pause auto-swipe
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsInteracting(true);
+    touchStartX.current = e.touches[0].clientX;
+    touchScrollLeft.current = scrollContainerRef.current?.scrollLeft || 0;
+  };
+
+  const handleTouchEnd = () => {
+    // Wait a bit before resuming auto-swipe
+    setTimeout(() => setIsInteracting(false), 2000);
+  };
 
   return (
-    <div className="flex flex-col items-center w-full mt-24 px-4">
-      <div className="text-center mb-16 animate-fadeIn">
-        <h3 className="vibes-font text-6xl md:text-8xl text-pink-200 mb-4 drop-shadow-xl">Captured Memories</h3>
-        <p className="text-pink-300/60 uppercase tracking-[0.4em] text-sm font-bold">Every moment with you is a treasure</p>
+    <div className="flex flex-col items-center w-full mt-32 px-4 mb-20">
+      <div className="text-center mb-20 animate-fadeIn">
+        <h3 className="vibes-font text-7xl md:text-9xl text-pink-200 mb-6 drop-shadow-2xl">Captured Memories</h3>
+        <p className="text-pink-300/50 uppercase tracking-[0.5em] text-sm md:text-base font-bold animate-pulse">Every moment with you is a treasure</p>
       </div>
       
       <div 
-        className="relative w-full max-w-7xl overflow-hidden py-12"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        className="relative w-full max-w-full overflow-hidden py-20"
+        onMouseEnter={() => setIsInteracting(true)}
+        onMouseLeave={() => setIsInteracting(false)}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Horizontal Slider Wrapper */}
         <div 
           ref={scrollContainerRef}
-          className="flex overflow-x-auto gap-8 px-8 snap-x snap-mandatory no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing"
+          className="flex overflow-x-auto gap-12 px-[10%] snap-x snap-mandatory no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing pb-10"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {photos.map((photo, idx) => (
             <div 
               key={photo.id} 
-              className="flex-shrink-0 snap-center first:ml-[5%] last:mr-[5%]"
+              className="flex-shrink-0 snap-center"
             >
               <div
-                className={`group relative bg-white p-4 pb-16 shadow-[0_30px_60px_rgba(0,0,0,0.5)] transition-all duration-700 hover:scale-110 hover:rotate-0 hover:z-50 opacity-0 animate-fadeInPhoto ${photo.rotation} w-[300px] md:w-[350px]`}
+                className={`group relative bg-white p-5 pb-20 shadow-[0_40px_80px_rgba(0,0,0,0.6)] transition-all duration-700 hover:scale-125 hover:rotate-0 hover:z-50 opacity-0 animate-fadeInPhoto ${photo.rotation} w-[280px] md:w-[350px]`}
                 style={{ 
-                  animationDelay: `${idx * 0.1}s`,
+                  animationDelay: `${idx * 0.15}s`,
                   animationFillMode: 'forwards'
                 }}
               >
-                {/* Photo Image */}
-                <div className="overflow-hidden aspect-[3/4] bg-gray-100 relative">
+                {/* Photo Image Container */}
+                <div className="overflow-hidden aspect-[3/4] bg-gray-100 relative shadow-inner">
                   <img
                     src={photo.src}
                     alt={photo.caption}
-                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 group-hover:brightness-110"
                     loading="lazy"
                   />
-                  {/* Subtle Light Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-black/5 pointer-events-none"></div>
+                  {/* Glass highlight effect */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 via-transparent to-black/10 pointer-events-none"></div>
                 </div>
                 
-                {/* Polaroid Style Caption */}
-                <div className="absolute bottom-4 left-0 w-full text-center px-6">
-                  <span className="dancing-font text-gray-800 text-xl md:text-2xl block leading-tight">
+                {/* Polaroid Style Caption - Poetic and beautiful */}
+                <div className="absolute bottom-6 left-0 w-full text-center px-8">
+                  <span className="dancing-font text-gray-800 text-2xl md:text-3xl block leading-tight drop-shadow-sm">
                     {photo.caption}
                   </span>
                 </div>
 
-                {/* Aesthetic Corner sparkles */}
-                <div className="absolute -top-3 -right-3 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">✨</div>
-                <div className="absolute -bottom-3 -left-3 text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200">✨</div>
+                {/* Decorative sparkles that appear on hover */}
+                <div className="absolute -top-4 -right-4 text-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 delay-75 group-hover:-translate-y-2 group-hover:translate-x-2">✨</div>
+                <div className="absolute -bottom-4 -left-4 text-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 delay-150 group-hover:translate-y-2 group-hover:-translate-x-2">💖</div>
                 
-                {/* Decorative border */}
+                {/* Authentic Polaroid border texture */}
                 <div className="absolute inset-0 border border-black/5 pointer-events-none"></div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Swipe Indicators for visual feedback */}
-        <div className="flex justify-center gap-2 mt-12">
+        {/* Dynamic Progress/Indicator line */}
+        <div className="flex justify-center gap-4 mt-16">
           {photos.map((_, i) => (
             <div 
               key={i} 
-              className={`h-1.5 rounded-full transition-all duration-500 ${isHovered ? 'bg-pink-500/20 w-3' : 'bg-pink-400/10 w-2'}`}
+              className={`h-1 rounded-full transition-all duration-700 ${isInteracting ? 'bg-pink-500/40 w-6' : 'bg-pink-400/20 w-3'}`}
             ></div>
           ))}
         </div>
@@ -159,11 +175,11 @@ export const PhotoGallery: React.FC = () => {
           display: none;
         }
         @keyframes fadeInPhoto {
-          from { opacity: 0; transform: translateY(40px) rotate(5deg) scale(0.9); }
-          to { opacity: 1; transform: translateY(0) rotate(var(--tw-rotate)) scale(1); }
+          from { opacity: 0; transform: translateY(60px) rotate(10deg) scale(0.8); filter: blur(10px); }
+          to { opacity: 1; transform: translateY(0) rotate(var(--tw-rotate)) scale(1); filter: blur(0); }
         }
         .animate-fadeInPhoto { 
-          animation: fadeInPhoto 1.2s cubic-bezier(0.22, 1, 0.36, 1); 
+          animation: fadeInPhoto 1.5s cubic-bezier(0.22, 1, 0.36, 1); 
         }
       `}</style>
     </div>
