@@ -22,17 +22,26 @@ const wishes = [
 
 export const DeepWishes: React.FC = () => {
   return (
-    <div className="mt-32 w-full max-w-5xl mx-auto px-4 opacity-0 animate-fadeIn" style={{ animationDelay: '5s', animationFillMode: 'forwards' }}>
-      <h2 className="vibes-font text-6xl text-pink-300 mb-16 text-center drop-shadow-lg">A Thousand Wishes For You</h2>
-      <div className="space-y-12">
+    <div className="mt-40 w-full max-w-6xl mx-auto px-6 opacity-0 animate-fadeIn" style={{ animationDelay: '5s', animationFillMode: 'forwards' }}>
+      <div className="text-center mb-24">
+        <h2 className="vibes-font text-7xl md:text-9xl text-pink-300 mb-6 drop-shadow-[0_0_20px_rgba(244,114,182,0.4)]">A Thousand Wishes</h2>
+        <p className="text-pink-200/40 uppercase tracking-[0.8em] text-xs font-bold">Written in the stars for you</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
         {wishes.map((w, i) => (
-          <div key={i} className="relative group pl-8 md:pl-16">
-            <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-pink-500 to-transparent rounded-full opacity-30 group-hover:opacity-100 transition-opacity"></div>
-            <div className="absolute -left-2 top-0 w-5 h-5 bg-pink-500 rounded-full blur-[2px] opacity-0 group-hover:opacity-80 transition-opacity"></div>
-            <h3 className="dancing-font text-3xl text-rose-200 mb-3 group-hover:text-pink-300 transition-colors">{w.title}</h3>
-            <p className="text-lg text-white/70 leading-relaxed font-light italic max-w-3xl">
+          <div key={i} className="relative group p-10 rounded-[3rem] bg-white/5 backdrop-blur-xl border border-white/10 transition-all duration-700 hover:bg-white/10 hover:border-pink-500/30 hover:-translate-y-4">
+            {/* Constellation Star */}
+            <div className="absolute -top-4 -left-4 w-12 h-12 bg-pink-500 rounded-full blur-[20px] opacity-0 group-hover:opacity-40 transition-opacity"></div>
+            <div className="absolute -top-1 -left-1 w-3 h-3 bg-white rounded-full shadow-[0_0_15px_#fff] animate-pulse"></div>
+            
+            <h3 className="dancing-font text-4xl md:text-5xl text-rose-200 mb-6 group-hover:text-pink-300 transition-colors duration-500 drop-shadow-md">{w.title}</h3>
+            <p className="text-lg md:text-xl text-white/70 leading-relaxed font-light italic">
               "{w.text}"
             </p>
+            
+            {/* Fairy Dust Particles */}
+            <div className="absolute bottom-6 right-8 text-2xl opacity-0 group-hover:opacity-100 transition-all duration-1000 group-hover:-translate-y-2">✨</div>
           </div>
         ))}
       </div>

@@ -14,7 +14,6 @@ export const HandwrittenNote: React.FC = () => {
   const [isStarted, setIsStarted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Trigger typewriter when component is in view
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -44,10 +43,9 @@ export const HandwrittenNote: React.FC = () => {
             return next;
           });
           setCurrentCharIndex(prev => prev + 1);
-        }, 30); // Speed of typing
+        }, 30); 
         return () => clearTimeout(timer);
       } else {
-        // Move to next paragraph after a small pause
         const nextParaTimer = setTimeout(() => {
           setCurrentParaIndex(prev => prev + 1);
           setCurrentCharIndex(0);
@@ -64,10 +62,8 @@ export const HandwrittenNote: React.FC = () => {
       style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}
     >
       <div className="bg-[#fffdf5] p-8 md:p-20 rounded-sm shadow-[30px_30px_60px_rgba(0,0,0,0.5)] border-l-[15px] border-pink-400 relative transform -rotate-1 transition-transform hover:rotate-0 duration-1000 overflow-hidden">
-        {/* Paper texture/lines effect */}
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px)', backgroundSize: '100% 3rem' }}></div>
         
-        {/* Subtle ink blotches */}
         <div className="absolute top-20 right-20 w-32 h-32 bg-pink-200/10 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute bottom-40 left-10 w-48 h-48 bg-purple-200/10 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -91,7 +87,6 @@ export const HandwrittenNote: React.FC = () => {
           <p className="dancing-font text-2xl text-gray-400 tracking-[0.3em] uppercase">— Forever your admirer ✨</p>
         </div>
 
-        {/* Floating elements attached to the note */}
         <div className="absolute -top-8 -right-8 text-6xl transform rotate-12 animate-bounce-slow">🌸</div>
         <div className="absolute -bottom-8 -left-8 text-6xl transform -rotate-12 animate-float-gentle">🦋</div>
         <div className="absolute top-1/4 -right-12 text-4xl animate-pulse text-pink-300">✨</div>

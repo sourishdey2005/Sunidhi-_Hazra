@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 
 interface Particle {
@@ -44,7 +45,6 @@ export const Confetti: React.FC = () => {
     window.addEventListener('resize', resize);
     resize();
 
-    // 1. Create Initial Celebration Burst
     const createBurst = () => {
       const count = 180;
       for (let i = 0; i < count; i++) {
@@ -56,7 +56,7 @@ export const Confetti: React.FC = () => {
           size: Math.random() * 10 + 5,
           color: colors[Math.floor(Math.random() * colors.length)],
           vx: Math.cos(angle) * velocity,
-          vy: Math.sin(angle) * velocity - 2, // slight upward bias
+          vy: Math.sin(angle) * velocity - 2,
           rot: Math.random() * 360,
           rotVel: Math.random() * 20 - 10,
           opacity: 1,
@@ -66,8 +66,6 @@ export const Confetti: React.FC = () => {
       }
     };
 
-    // 2. Initial state for Gentle Background Fall
-    // Added explicit return type 'Particle' to ensure property 'shape' is correctly typed as a union of literals
     const createGentleParticle = (y: number = -20): Particle => ({
       x: Math.random() * canvas.width,
       y: y,
@@ -78,16 +76,14 @@ export const Confetti: React.FC = () => {
       rot: Math.random() * 360,
       rotVel: Math.random() * 4 - 2,
       opacity: Math.random() * 0.6 + 0.2,
-      type: 'gentle' as const,
+      type: 'gentle',
       shape: Math.random() > 0.5 ? 'square' : (Math.random() > 0.5 ? 'circle' : 'line')
     });
 
-    // Populate the screen with initial gentle particles
     for (let i = 0; i < 100; i++) {
       particles.push(createGentleParticle(Math.random() * canvas.height));
     }
 
-    // Trigger the burst immediately
     createBurst();
 
     const animate = () => {
@@ -99,12 +95,11 @@ export const Confetti: React.FC = () => {
         p.rot += p.rotVel;
 
         if (p.type === 'burst') {
-          p.vy += 0.2; // Gravity
-          p.vx *= 0.97; // Air resistance
+          p.vy += 0.2;
+          p.vx *= 0.97;
           p.opacity -= 0.006;
           if (p.opacity <= 0) return false;
         } else {
-          // Gentle swaying motion
           p.x += Math.sin(p.y / 60 + p.rot / 100) * 0.4;
           if (p.y > canvas.height) {
             p.y = -20;
@@ -132,7 +127,6 @@ export const Confetti: React.FC = () => {
         return true;
       });
 
-      // Maintain a constant density of gentle particles
       const gentleCount = particles.filter(p => p.type === 'gentle').length;
       if (gentleCount < 100) {
         particles.push(createGentleParticle());
