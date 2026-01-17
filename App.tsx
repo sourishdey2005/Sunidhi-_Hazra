@@ -69,16 +69,16 @@ const App: React.FC = () => {
       )}
 
       {phase === 'entry' && (
-        <div className="z-20 text-center animate-fadeIn px-4 flex flex-col items-center">
-          <div className="mb-6 text-pink-400 animate-bounce text-3xl">✨ 💖 ✨</div>
-          <h1 className="vibes-font text-8xl md:text-[12rem] mb-4 animate-grandEntrance tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-pink-200 via-rose-400 to-purple-500 drop-shadow-[0_0_30px_rgba(244,114,182,0.3)]">
+        <div className="z-20 text-center animate-fadeIn px-4 flex flex-col items-center w-full max-w-[100vw]">
+          <div className="mb-6 text-pink-400 animate-bounce text-2xl md:text-3xl">✨ 💖 ✨</div>
+          <h1 className="vibes-font text-5xl sm:text-7xl md:text-9xl lg:text-[11rem] mb-4 animate-grandEntrance leading-tight md:leading-none text-transparent bg-clip-text bg-gradient-to-b from-pink-200 via-rose-400 to-purple-500 drop-shadow-[0_0_20px_rgba(244,114,182,0.3)]">
             A Universe for Sunidhi
           </h1>
-          <p className="mb-10 text-rose-200/70 tracking-[0.5em] uppercase text-sm md:text-lg font-bold animate-pulse">Destined for magic</p>
+          <p className="mb-10 text-rose-200/70 tracking-[0.3em] md:tracking-[0.5em] uppercase text-xs md:text-lg font-bold animate-pulse">Destined for magic</p>
           <Countdown targetDate="2025-03-11" />
           <button 
             onClick={startCelebration}
-            className="mt-16 px-16 py-8 bg-gradient-to-r from-pink-600 via-rose-500 to-pink-600 bg-[length:200%_auto] animate-gradientMove rounded-full text-3xl font-bold hover:scale-110 active:scale-95 transition-all duration-300 shadow-[0_0_70px_rgba(244,63,94,0.5)] border border-pink-400/50 group overflow-hidden relative"
+            className="mt-16 px-10 md:px-16 py-6 md:py-8 bg-gradient-to-r from-pink-600 via-rose-500 to-pink-600 bg-[length:200%_auto] animate-gradientMove rounded-full text-xl md:text-3xl font-bold hover:scale-110 active:scale-95 transition-all duration-300 shadow-[0_0_70px_rgba(244,63,94,0.5)] border border-pink-400/50 group overflow-hidden relative"
           >
             <span className="relative z-10">Step Into Her Magic ✨</span>
           </button>
@@ -86,17 +86,19 @@ const App: React.FC = () => {
       )}
 
       {phase === 'blowing' && (
-        <div className="z-20 flex flex-col items-center animate-fadeIn px-4 w-full">
-          <h2 className="dancing-font text-6xl md:text-9xl text-pink-200 mb-10 text-center drop-shadow-[0_0_30px_rgba(255,182,193,0.5)]">
+        <div className="z-20 flex flex-col items-center animate-fadeIn px-6 w-full max-h-full overflow-y-auto py-10">
+          <h2 className="dancing-font text-4xl sm:text-6xl md:text-9xl text-pink-200 mb-8 text-center drop-shadow-[0_0_30px_rgba(255,182,193,0.5)]">
             A Wish Just For You...
           </h2>
-          <div className="mb-20 max-w-5xl">
-            <p className="text-rose-100 text-3xl md:text-6xl font-light text-center leading-tight italic animate-softPulse">
+          <div className="mb-12 max-w-4xl w-full">
+            <p className="text-rose-100 text-lg sm:text-2xl md:text-5xl font-light text-center leading-snug italic animate-softPulse break-words">
               "Take a deep breath, Sunidhi. Close your eyes, think of your wildest dream, and let the magic begin."
             </p>
           </div>
-          <Cake onBlown={handleCandlesBlown} />
-          <p className="mt-20 text-white/30 text-sm animate-pulse italic tracking-widest uppercase font-bold">The Universe is listening. Make it count.</p>
+          <div className="transform scale-[0.65] sm:scale-75 md:scale-100 transition-transform origin-center">
+            <Cake onBlown={handleCandlesBlown} />
+          </div>
+          <p className="mt-12 text-white/30 text-[10px] md:text-sm animate-pulse italic tracking-widest uppercase font-bold text-center">The Universe is listening. Make it count.</p>
         </div>
       )}
 
@@ -106,16 +108,16 @@ const App: React.FC = () => {
             <Confetti />
             
             <header className="text-center mb-60 animate-scaleUp">
-              <h2 className="vibes-font text-8xl md:text-[15rem] text-pink-300 mb-14 drop-shadow-[0_0_60px_rgba(255,182,193,0.5)] animate-shimmer">
+              <h2 className="vibes-font text-6xl sm:text-8xl md:text-[15rem] text-pink-300 mb-14 drop-shadow-[0_0_60px_rgba(255,182,193,0.5)] animate-shimmer">
                 Happy Birthday! 🎉
               </h2>
-              <div className="space-y-12 text-4xl md:text-6xl text-rose-50/90 font-light max-w-6xl mx-auto leading-tight">
-                <p className="animate-typewriter overflow-hidden whitespace-nowrap border-r-4 border-pink-400 mx-auto italic drop-shadow-lg">
+              <div className="space-y-12 text-2xl sm:text-4xl md:text-6xl text-rose-50/90 font-light max-w-6xl mx-auto leading-tight">
+                <p className="animate-typewriter overflow-hidden whitespace-nowrap border-r-4 border-pink-400 mx-auto italic drop-shadow-lg max-w-full">
                   "Sunidhi, your smile lights up every room."
                 </p>
                 <div className="space-y-8 opacity-0 animate-fadeIn" style={{ animationDelay: '2.5s', animationFillMode: 'forwards' }}>
                    <p className="text-pink-100/80">Today is a grand celebration of the day the world got infinitely brighter.</p>
-                   <p className="text-pink-300 font-bold drop-shadow-xl text-5xl md:text-7xl">You are a masterpiece of nature.</p>
+                   <p className="text-pink-300 font-bold drop-shadow-xl text-3xl sm:text-5xl md:text-7xl">You are a masterpiece of nature.</p>
                 </div>
               </div>
             </header>
@@ -129,16 +131,16 @@ const App: React.FC = () => {
 
             <div className="mt-20 pt-40 border-t border-white/10 w-full text-center pb-60 relative">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-60 bg-gradient-to-b from-pink-500 to-transparent"></div>
-              <p className="dancing-font text-6xl md:text-8xl text-purple-200 mb-16 opacity-0 animate-fadeIn" style={{ animationDelay: '8.5s', animationFillMode: 'forwards' }}>
+              <p className="dancing-font text-4xl sm:text-6xl md:text-8xl text-purple-200 mb-16 opacity-0 animate-fadeIn" style={{ animationDelay: '8.5s', animationFillMode: 'forwards' }}>
                 Admired by many, loved by all 💫
               </p>
               <div className="opacity-0 animate-fadeIn" style={{ animationDelay: '9.5s', animationFillMode: 'forwards' }}>
-                <p className="text-white/40 max-w-4xl mx-auto mb-20 text-2xl font-light leading-relaxed px-4">
+                <p className="text-white/40 max-w-4xl mx-auto mb-20 text-lg md:text-2xl font-light leading-relaxed px-4">
                   Thank you for being the wonderful person you are. This digital garden was built specifically to remind you of your worth on your special day. You are a star that needs no sky to shine.
                 </p>
                 <button 
                   onClick={() => setPhase('blowing')}
-                  className="px-20 py-8 bg-gradient-to-r from-pink-600/20 to-purple-600/20 hover:from-pink-600/40 hover:to-purple-600/40 rounded-full text-3xl border border-white/20 transition-all backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95"
+                  className="px-12 md:px-20 py-6 md:py-8 bg-gradient-to-r from-pink-600/20 to-purple-600/20 hover:from-pink-600/40 hover:to-purple-600/40 rounded-full text-xl md:text-3xl border border-white/20 transition-all backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95"
                 >
                   Relive the Magic 🪄
                 </button>
@@ -152,7 +154,7 @@ const App: React.FC = () => {
         @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scaleUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes grandEntrance {
-          0% { opacity: 0; transform: scale(0.8) translateY(50px); filter: blur(20px); letter-spacing: 0.5em; }
+          0% { opacity: 0; transform: scale(0.8) translateY(50px); filter: blur(20px); letter-spacing: 0.1em; }
           100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); letter-spacing: -0.025em; }
         }
         @keyframes softPulse {

@@ -1,145 +1,180 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface PhotoItem {
   id: string | number;
   src: string;
   rotation: string;
+  caption: string;
 }
 
 export const PhotoGallery: React.FC = () => {
   const [photos, setPhotos] = useState<PhotoItem[]>([
-    { id: 'p1', src: 'https://picsum.photos/id/103/300/400', rotation: '-rotate-3' },
-    { id: 'p2', src: 'https://picsum.photos/id/106/300/400', rotation: 'rotate-2' },
-    { id: 'p3', src: 'https://picsum.photos/id/129/300/400', rotation: '-rotate-1' },
+    { 
+      id: 'p1', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641298/c130d650-29bc-42ab-b881-9482f2232073_bryfuv.jpg', 
+      rotation: '-rotate-2',
+      caption: 'Sun-kissed perfection ☀️'
+    },
+    { 
+      id: 'p2', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641288/937bc556-1391-467a-b3de-99fa599003fd_esoera.jpg', 
+      rotation: 'rotate-1',
+      caption: 'Elegance in every frame ✨'
+    },
+    { 
+      id: 'p3', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641283/c4a74d20-b2ff-4a0b-af53-31f82b1347ed_ammjls.jpg', 
+      rotation: '-rotate-1',
+      caption: 'A smile that lights up worlds 💖'
+    },
+    { 
+      id: 'p4', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641274/c14c0530-ab91-446f-8367-a68be65f8462_lyvxyv.jpg', 
+      rotation: 'rotate-2',
+      caption: 'Pure grace and magic 🌸'
+    },
+    { 
+      id: 'p5', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641279/fa6c2af3-bf07-4216-8bab-6f5917b03e9c_sgsied.jpg', 
+      rotation: '-rotate-3',
+      caption: 'Capturing your radiant soul 🌟'
+    },
+    { 
+      id: 'p6', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641268/53d8c0e1-4af9-482d-a26b-53e091e108bd_hd7o2i.jpg', 
+      rotation: 'rotate-3',
+      caption: 'Unfiltered beauty, infinite charm 💫'
+    },
+    { 
+      id: 'p7', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641264/ab2c1580-e265-4cea-af97-733443e03f9d_fqlhs3.jpg', 
+      rotation: '-rotate-1',
+      caption: "The universe's favorite masterpiece 🎨"
+    },
+    { 
+      id: 'p8', 
+      src: 'https://res.cloudinary.com/dodhvvewu/image/upload/v1768641261/f3d1d5cc-482b-4d65-b415-a8fc2652d916_qi6w7z.jpg', 
+      rotation: 'rotate-2',
+      caption: 'Simply breathtaking, Sunidhi 🦋'
+    }
   ]);
 
-  const [captions, setCaptions] = useState<string[]>([
-    'Gorgeous 💖',
-    'Beautiful ✨',
-    'Ma Shallah 🌸'
-  ]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const rotations = ['rotate-1', '-rotate-1', 'rotate-2', '-rotate-2', 'rotate-3', '-rotate-3'];
-
-  const handleCaptionChange = (index: number, value: string) => {
-    const newCaptions = [...captions];
-    newCaptions[index] = value;
-    setCaptions(newCaptions);
-  };
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file && photos.length < 6) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const newSrc = e.target?.result as string;
-        const randomRotation = rotations[Math.floor(Math.random() * rotations.length)];
-        
-        setPhotos(prev => [...prev, { 
-          id: `custom-${Date.now()}`, 
-          src: newSrc, 
-          rotation: randomRotation 
-        }]);
-        setCaptions(prev => [...prev, 'Stunning ✨']);
-      };
-      reader.readAsDataURL(file);
+  useEffect(() => {
+    let interval: number;
+    if (isAutoScrolling && scrollContainerRef.current) {
+      interval = window.setInterval(() => {
+        const container = scrollContainerRef.current;
+        if (container) {
+          const maxScrollLeft = container.scrollWidth - container.clientWidth;
+          if (container.scrollLeft >= maxScrollLeft - 10) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            container.scrollBy({ left: 300, behavior: 'smooth' });
+          }
+        }
+      }, 4000);
     }
-  };
+    return () => clearInterval(interval);
+  }, [isAutoScrolling]);
 
-  const deletePhoto = (id: string | number) => {
-    const idx = photos.findIndex(p => p.id === id);
-    if (idx > -1) {
-      const newPhotos = [...photos];
-      const newCaptions = [...captions];
-      newPhotos.splice(idx, 1);
-      newCaptions.splice(idx, 1);
-      setPhotos(newPhotos);
-      setCaptions(newCaptions);
-    }
-  };
-
-  const triggerUpload = () => {
-    fileInputRef.current?.click();
+  const handleManualScroll = () => {
+    setIsAutoScrolling(false);
+    // Resume auto-scroll after 10 seconds of inactivity
+    setTimeout(() => setIsAutoScrolling(true), 10000);
   };
 
   return (
-    <div className="flex flex-col items-center w-full mt-10">
-      <h3 className="vibes-font text-5xl text-pink-200 mb-8 opacity-0 animate-fadeIn" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>Captured Memories</h3>
+    <div className="flex flex-col items-center w-full mt-10 px-4">
+      <div className="text-center mb-12">
+        <h3 className="vibes-font text-6xl text-pink-200 mb-2 opacity-0 animate-fadeIn" style={{ animationDelay: '0.5s', animationFillMode: 'forwards' }}>Captured Memories</h3>
+        <p className="text-pink-300/40 uppercase tracking-[0.3em] text-xs font-bold">Every moment with you is a treasure</p>
+      </div>
       
-      <div className="flex flex-wrap justify-center gap-8 md:gap-12 px-4 max-w-6xl">
-        {photos.map((photo, idx) => (
-          <div key={photo.id} className="flex flex-col items-center group">
-            <div
-              className={`relative bg-white p-3 pb-12 shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:z-30 group-hover:rotate-0 opacity-0 animate-fadeInPhoto ${photo.rotation}`}
-              style={{ animationDelay: `${0.2 + idx * 0.1}s` }}
-            >
-              <div className="overflow-hidden w-40 h-52 bg-gray-100">
-                <img
-                  src={photo.src}
-                  alt="Memory"
-                  className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-700"
-                />
-              </div>
-              
-              <div className="absolute bottom-2 left-0 w-full text-center px-2">
-                <span className="dancing-font text-pink-600 text-lg block truncate">
-                  {captions[idx]}
-                </span>
-              </div>
+      <div className="relative w-full max-w-6xl group/gallery">
+        {/* Swipe Instructions for Mobile */}
+        <div className="md:hidden flex justify-center mb-4 gap-2 text-pink-300/30 text-xs animate-pulse">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Swipe to explore</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
 
-              {/* Action Buttons (Only for non-default or visible on hover) */}
-              <button 
-                onClick={() => deletePhoto(photo.id)}
-                className="absolute -top-2 -right-2 bg-rose-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-40 hover:scale-110"
-              >
-                ✕
-              </button>
-
-              <div className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
-                <div className="absolute -top-2 -right-2 text-yellow-400 animate-pulse text-xl">✨</div>
-                <div className="absolute -bottom-2 -left-2 text-pink-400 animate-pulse delay-150 text-xl">💖</div>
-              </div>
-            </div>
-
+        {/* Horizontal Slider */}
+        <div 
+          ref={scrollContainerRef}
+          onScroll={handleManualScroll}
+          className="flex overflow-x-auto gap-8 py-12 px-8 snap-x snap-mandatory scrollbar-hide no-scrollbar scroll-smooth"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {photos.map((photo, idx) => (
             <div 
-              className="mt-4 opacity-0 animate-fadeInPhoto" 
-              style={{ animationDelay: `${0.5 + idx * 0.1}s` }}
+              key={photo.id} 
+              className="flex-shrink-0 snap-center first:ml-[10%] last:mr-[10%]"
             >
-              <input
-                type="text"
-                value={captions[idx]}
-                onChange={(e) => handleCaptionChange(idx, e.target.value)}
-                className="bg-white/5 border-b border-pink-400/20 text-pink-100 text-sm text-center py-1 px-2 focus:outline-none focus:border-pink-400 focus:bg-white/10 rounded-t-sm transition-all w-32"
-              />
-            </div>
-          </div>
-        ))}
+              <div
+                className={`relative bg-white p-4 pb-14 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-all duration-700 hover:scale-105 hover:rotate-0 hover:z-30 opacity-0 animate-fadeInPhoto ${photo.rotation} w-[280px] md:w-[320px]`}
+                style={{ animationDelay: `${0.2 + idx * 0.1}s` }}
+              >
+                {/* Photo Frame */}
+                <div className="overflow-hidden aspect-[3/4] bg-gray-100 relative group/photo">
+                  <img
+                    src={photo.src}
+                    alt={`Memory ${idx + 1}`}
+                    className="w-full h-full object-cover grayscale-[15%] group-hover/photo:grayscale-0 transition-all duration-1000 group-hover/photo:scale-110"
+                    loading="lazy"
+                  />
+                  {/* Subtle Light Effect on Image */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent pointer-events-none"></div>
+                </div>
+                
+                {/* Polaroid Caption */}
+                <div className="absolute bottom-4 left-0 w-full text-center px-4">
+                  <span className="dancing-font text-gray-800 text-xl md:text-2xl block truncate drop-shadow-sm">
+                    {photo.caption}
+                  </span>
+                </div>
 
-        {photos.length < 6 && (
-          <div className="flex flex-col items-center opacity-0 animate-fadeIn" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
-            <button 
-              onClick={triggerUpload}
-              className="w-46 h-64 bg-white/5 border-2 border-dashed border-pink-400/20 rounded-xl flex flex-col items-center justify-center gap-4 hover:bg-pink-500/10 hover:border-pink-400/50 transition-all group p-4"
-            >
-              <div className="w-12 h-12 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-300 group-hover:bg-pink-500/30 transition-all">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                {/* Decorative Elements */}
+                <div className="absolute top-4 left-4 text-white/40 group-hover:text-pink-400/50 transition-colors pointer-events-none">✨</div>
+                
+                {/* Shadow underneath */}
+                <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-4/5 h-4 bg-black/20 blur-xl rounded-full"></div>
               </div>
-              <span className="text-xs uppercase tracking-widest text-pink-300/60 font-bold text-center">Add Moment</span>
-              <p className="text-[10px] text-white/30">{6 - photos.length} slots left</p>
-            </button>
-            <input type="file" ref={fileInputRef} className="hidden" accept="image/*" onChange={handleFileUpload} />
-          </div>
-        )}
+            </div>
+          ))}
+        </div>
+
+        {/* Scroll Nav Dots */}
+        <div className="flex justify-center gap-3 mt-8">
+          {photos.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setIsAutoScrolling(false);
+                scrollContainerRef.current?.scrollTo({ 
+                  left: idx * 300, // Approximate width
+                  behavior: 'smooth' 
+                });
+              }}
+              className="w-2 h-2 rounded-full bg-pink-500/20 hover:bg-pink-500/60 transition-all duration-300"
+              aria-label={`Go to photo ${idx + 1}`}
+            />
+          ))}
+        </div>
       </div>
       
       <style>{`
-        @keyframes fadeInPhoto {
-          from { opacity: 0; transform: scale(0.9) rotate(5deg); }
-          to { opacity: 1; transform: scale(1) rotate(var(--tw-rotate)); }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
         }
-        .animate-fadeInPhoto { animation: fadeInPhoto 0.8s ease-out forwards; }
+        @keyframes fadeInPhoto {
+          from { opacity: 0; transform: scale(0.9) rotate(5deg) translateY(20px); }
+          to { opacity: 1; transform: scale(1) rotate(var(--tw-rotate)) translateY(0); }
+        }
+        .animate-fadeInPhoto { animation: fadeInPhoto 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
       `}</style>
     </div>
   );
