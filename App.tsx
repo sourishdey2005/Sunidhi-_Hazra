@@ -71,14 +71,14 @@ const App: React.FC = () => {
       {phase === 'entry' && (
         <div className="z-20 text-center animate-fadeIn px-4 flex flex-col items-center">
           <div className="mb-6 text-pink-400 animate-bounce text-3xl">✨ 💖 ✨</div>
-          <h1 className="vibes-font text-7xl md:text-[10rem] mb-4 animate-titleGlow tracking-tight leading-none">
+          <h1 className="vibes-font text-8xl md:text-[12rem] mb-4 animate-grandEntrance tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-pink-200 via-rose-400 to-purple-500 drop-shadow-[0_0_30px_rgba(244,114,182,0.3)]">
             A Universe for Sunidhi
           </h1>
-          <p className="mb-10 text-rose-200/70 tracking-[0.4em] uppercase text-sm md:text-base font-bold animate-pulse">The countdown to pure magic</p>
+          <p className="mb-10 text-rose-200/70 tracking-[0.5em] uppercase text-sm md:text-lg font-bold animate-pulse">Destined for magic</p>
           <Countdown targetDate="2025-03-11" />
           <button 
             onClick={startCelebration}
-            className="mt-16 px-14 py-6 bg-gradient-to-r from-pink-600 via-rose-500 to-pink-600 bg-[length:200%_auto] animate-gradientMove rounded-full text-2xl font-bold hover:scale-110 active:scale-95 transition-all duration-300 shadow-[0_0_50px_rgba(244,63,94,0.6)] border border-pink-400/50 group overflow-hidden relative"
+            className="mt-16 px-16 py-8 bg-gradient-to-r from-pink-600 via-rose-500 to-pink-600 bg-[length:200%_auto] animate-gradientMove rounded-full text-3xl font-bold hover:scale-110 active:scale-95 transition-all duration-300 shadow-[0_0_70px_rgba(244,63,94,0.5)] border border-pink-400/50 group overflow-hidden relative"
           >
             <span className="relative z-10">Step Into Her Magic ✨</span>
           </button>
@@ -86,15 +86,17 @@ const App: React.FC = () => {
       )}
 
       {phase === 'blowing' && (
-        <div className="z-20 flex flex-col items-center animate-fadeIn px-4">
-          <h2 className="dancing-font text-5xl md:text-8xl text-pink-200 mb-8 text-center drop-shadow-[0_0_20px_rgba(255,182,193,0.5)]">
+        <div className="z-20 flex flex-col items-center animate-fadeIn px-4 w-full">
+          <h2 className="dancing-font text-6xl md:text-9xl text-pink-200 mb-10 text-center drop-shadow-[0_0_30px_rgba(255,182,193,0.5)]">
             A Wish Just For You...
           </h2>
-          <p className="mb-16 text-rose-100 text-2xl md:text-4xl font-light text-center max-w-4xl leading-relaxed italic animate-pulse">
-            "Take a deep breath, Sunidhi. Close your eyes, think of your wildest dream, and let the magic begin."
-          </p>
+          <div className="mb-20 max-w-5xl">
+            <p className="text-rose-100 text-3xl md:text-6xl font-light text-center leading-tight italic animate-softPulse">
+              "Take a deep breath, Sunidhi. Close your eyes, think of your wildest dream, and let the magic begin."
+            </p>
+          </div>
           <Cake onBlown={handleCandlesBlown} />
-          <p className="mt-16 text-white/30 text-xs animate-pulse italic tracking-widest uppercase">Technology meets tradition: Blow or Click.</p>
+          <p className="mt-20 text-white/30 text-sm animate-pulse italic tracking-widest uppercase font-bold">The Universe is listening. Make it count.</p>
         </div>
       )}
 
@@ -103,42 +105,42 @@ const App: React.FC = () => {
           <div className="w-full max-w-6xl flex flex-col items-center">
             <Confetti />
             
-            <header className="text-center mb-40 animate-scaleUp">
-              <h2 className="vibes-font text-7xl md:text-[12rem] text-pink-300 mb-10 drop-shadow-[0_0_40px_rgba(255,182,193,0.5)] animate-shimmer">
+            <header className="text-center mb-60 animate-scaleUp">
+              <h2 className="vibes-font text-8xl md:text-[15rem] text-pink-300 mb-14 drop-shadow-[0_0_60px_rgba(255,182,193,0.5)] animate-shimmer">
                 Happy Birthday! 🎉
               </h2>
-              <div className="space-y-10 text-3xl md:text-5xl text-rose-50/90 font-light max-w-5xl mx-auto leading-tight">
-                <p className="animate-typewriter overflow-hidden whitespace-nowrap border-r-4 border-pink-400 mx-auto italic">
+              <div className="space-y-12 text-4xl md:text-6xl text-rose-50/90 font-light max-w-6xl mx-auto leading-tight">
+                <p className="animate-typewriter overflow-hidden whitespace-nowrap border-r-4 border-pink-400 mx-auto italic drop-shadow-lg">
                   "Sunidhi, your smile lights up every room."
                 </p>
-                <div className="space-y-6 opacity-0 animate-fadeIn" style={{ animationDelay: '2s', animationFillMode: 'forwards' }}>
+                <div className="space-y-8 opacity-0 animate-fadeIn" style={{ animationDelay: '2.5s', animationFillMode: 'forwards' }}>
                    <p className="text-pink-100/80">Today is a grand celebration of the day the world got infinitely brighter.</p>
-                   <p className="text-pink-300 font-bold drop-shadow-sm">May this year bring you every ounce of magic you deserve.</p>
+                   <p className="text-pink-300 font-bold drop-shadow-xl text-5xl md:text-7xl">You are a masterpiece of nature.</p>
                 </div>
               </div>
             </header>
 
-            <section className="mb-40 w-full flex flex-col items-center"><PhotoGallery /></section>
-            <section className="mb-40 w-full flex flex-col items-center"><Timeline /></section>
-            <section className="mb-40 w-full flex flex-col items-center"><DeepWishes /></section>
-            <section className="mb-40 w-full flex flex-col items-center z-30"><GiftBox /></section>
-            <section className="mb-40 w-full flex flex-col items-center"><HandwrittenNote /></section>
-            <section className="mb-40 w-full flex flex-col items-center"><ComplimentsGrid /></section>
+            <section className="mb-60 w-full flex flex-col items-center"><PhotoGallery /></section>
+            <section className="mb-60 w-full flex flex-col items-center"><Timeline /></section>
+            <section className="mb-60 w-full flex flex-col items-center"><DeepWishes /></section>
+            <section className="mb-60 w-full flex flex-col items-center z-30"><GiftBox /></section>
+            <section className="mb-60 w-full flex flex-col items-center"><HandwrittenNote /></section>
+            <section className="mb-60 w-full flex flex-col items-center"><ComplimentsGrid /></section>
 
-            <div className="mt-20 pt-24 border-t border-white/10 w-full text-center pb-40 relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-32 bg-gradient-to-b from-pink-500 to-transparent"></div>
-              <p className="dancing-font text-5xl md:text-7xl text-purple-200 mb-12 opacity-0 animate-fadeIn" style={{ animationDelay: '8.5s', animationFillMode: 'forwards' }}>
+            <div className="mt-20 pt-40 border-t border-white/10 w-full text-center pb-60 relative">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-60 bg-gradient-to-b from-pink-500 to-transparent"></div>
+              <p className="dancing-font text-6xl md:text-8xl text-purple-200 mb-16 opacity-0 animate-fadeIn" style={{ animationDelay: '8.5s', animationFillMode: 'forwards' }}>
                 Admired by many, loved by all 💫
               </p>
               <div className="opacity-0 animate-fadeIn" style={{ animationDelay: '9.5s', animationFillMode: 'forwards' }}>
-                <p className="text-white/40 max-w-3xl mx-auto mb-16 text-lg font-light leading-relaxed">
-                  Thank you for being the wonderful person you are. This digital garden was built specifically to remind you of your worth on your special day. You are a star in your own right.
+                <p className="text-white/40 max-w-4xl mx-auto mb-20 text-2xl font-light leading-relaxed px-4">
+                  Thank you for being the wonderful person you are. This digital garden was built specifically to remind you of your worth on your special day. You are a star that needs no sky to shine.
                 </p>
                 <button 
                   onClick={() => setPhase('blowing')}
-                  className="px-16 py-6 bg-gradient-to-r from-pink-600/20 to-purple-600/20 hover:from-pink-600/40 hover:to-purple-600/40 rounded-full text-2xl border border-white/20 transition-all backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95"
+                  className="px-20 py-8 bg-gradient-to-r from-pink-600/20 to-purple-600/20 hover:from-pink-600/40 hover:to-purple-600/40 rounded-full text-3xl border border-white/20 transition-all backdrop-blur-md shadow-2xl hover:scale-105 active:scale-95"
                 >
-                  Experience the Magic Again 🪄
+                  Relive the Magic 🪄
                 </button>
               </div>
             </div>
@@ -147,28 +149,30 @@ const App: React.FC = () => {
       )}
 
       <style>{`
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes scaleUp { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes titleGlow {
-          0%, 100% { color: #f9a8d4; text-shadow: 0 0 20px rgba(244,114,182,0.4); }
-          50% { color: #e879f9; text-shadow: 0 0 50px rgba(232,121,249,0.8); }
+        @keyframes grandEntrance {
+          0% { opacity: 0; transform: scale(0.8) translateY(50px); filter: blur(20px); letter-spacing: 0.5em; }
+          100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); letter-spacing: -0.025em; }
+        }
+        @keyframes softPulse {
+          0%, 100% { transform: scale(1); text-shadow: 0 0 10px rgba(255,255,255,0.2); }
+          50% { transform: scale(1.02); text-shadow: 0 0 30px rgba(255,255,255,0.4); }
         }
         @keyframes gradientMove {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
           100% { background-position: 0% 50%; }
         }
-        @keyframes typewriter { 
-          from { width: 0; } 
-          to { width: 100%; } 
-        }
+        @keyframes typewriter { from { width: 0; } to { width: 100%; } }
         @keyframes shimmer {
           0% { background-position: -200% 0; }
           100% { background-position: 200% 0; }
         }
-        .animate-fadeIn { animation: fadeIn 1.5s ease-out forwards; }
-        .animate-scaleUp { animation: scaleUp 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-        .animate-titleGlow { animation: titleGlow 4s ease-in-out infinite; }
+        .animate-fadeIn { animation: fadeIn 1.8s ease-out forwards; }
+        .animate-scaleUp { animation: scaleUp 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .animate-grandEntrance { animation: grandEntrance 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .animate-softPulse { animation: softPulse 4s ease-in-out infinite; }
         .animate-gradientMove { animation: gradientMove 3s ease infinite; }
         .animate-typewriter { animation: typewriter 3s steps(60, end) forwards; }
         .animate-shimmer {
@@ -179,10 +183,6 @@ const App: React.FC = () => {
           color: transparent;
           animation: shimmer 5s linear infinite;
         }
-        
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #f472b6, #818cf8); border-radius: 10px; }
       `}</style>
     </div>
   );

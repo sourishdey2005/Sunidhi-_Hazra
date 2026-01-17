@@ -11,11 +11,16 @@
         body {
             margin: 0;
             overflow: hidden;
-            background: radial-gradient(circle at center, #1a1a2e 0%, #0f0c29 100%);
+            background: #050510;
             font-family: 'Quicksand', sans-serif;
         }
         .dancing-font { font-family: 'Dancing Script', cursive; }
         .vibes-font { font-family: 'Great Vibes', cursive; }
+        
+        /* Custom scrollbar for the long wish page */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #f472b6, #818cf8); border-radius: 10px; }
     </style>
 <script type="importmap">
 {
@@ -29,5 +34,6 @@
 </head>
 <body>
     <div id="root"></div>
+    <script type="module" src="index.tsx"></script>
 </body>
 </html>
