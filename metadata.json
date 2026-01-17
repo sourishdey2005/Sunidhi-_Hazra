@@ -1,0 +1,7 @@
+{
+  "name": "Sunidhi's Birthday Surprise",
+  "description": "A magical, interactive birthday celebration for Sunidhi featuring fireworks, a blowable cake, and heartfelt messages.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
